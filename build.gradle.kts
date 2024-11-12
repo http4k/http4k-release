@@ -106,10 +106,6 @@ subprojects {
             excludeOwnGroup = true
         }
 
-        if (!project.name.contains("serverless")) {
-            apply(plugin = "org.jetbrains.dokka")
-        }
-
         val enableSigning = project.findProperty("sign") == "true"
 
         apply(plugin = "maven-publish") // required to upload to sonatype

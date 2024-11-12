@@ -16,3 +16,5 @@ refreshVersions {
 gradle.startParameter.isContinueOnFailure = true
 
 includeBuild("../http4k")
+
+include(":http4k-sdk-bom")
