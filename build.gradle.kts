@@ -3,33 +3,18 @@ import com.github.jk1.license.render.InventoryHtmlReportRenderer
 import com.github.jk1.license.render.JsonReportRenderer
 import groovy.namespace.QName
 import groovy.util.Node
-import org.gradle.api.JavaVersion.VERSION_1_8
-import org.jetbrains.dokka.base.DokkaBase
-import org.jetbrains.dokka.base.DokkaBaseConfiguration
-import org.jetbrains.dokka.gradle.DokkaMultiModuleTask
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 import java.net.URI
 import java.time.Duration
 
 plugins {
-    kotlin("jvm")
-    idea
-    jacoco
     `java-library`
     `java-test-fixtures`
     `maven-publish`
     signing
     id("io.github.gradle-nexus.publish-plugin")
-    kotlin("plugin.serialization")
-    id("org.jetbrains.dokka")
     id("com.github.jk1.dependency-license-report")
-}
-
-kotlin {
-    jvmToolchain {
-        languageVersion.set(JavaLanguageVersion.of(21))
-    }
 }
 
 buildscript {
@@ -60,55 +45,15 @@ allprojects {
     version = project.properties["releaseVersion"] ?: "LOCAL"
     group = "org.http4k"
 
-    jacoco {
-        toolVersion = "0.8.12"
-    }
-
     tasks {
-        withType<KotlinJvmCompile>().configureEach {
-            compilerOptions {
-                jvmTarget.set(JVM_1_8)
-            }
-        }
-
-        java {
-            sourceCompatibility = VERSION_1_8
-            targetCompatibility = VERSION_1_8
-        }
-
-        withType<Test> {
-            useJUnitPlatform()
-            jvmArgs = listOf("--enable-preview")
-        }
-
-        named<JacocoReport>("jacocoTestReport") {
-            reports {
-                html.required.set(true)
-                xml.required.set(true)
-                csv.required.set(false)
-            }
-        }
-
         withType<GenerateModuleMetadata> {
             enabled = false
         }
     }
 
-    dependencies {
-        testImplementation(Testing.junit.jupiter.api)
-        testImplementation(Testing.junit.jupiter.engine)
-        testImplementation("com.natpryce:hamkrest:_")
-
-        testFixturesImplementation(Testing.junit.jupiter.api)
-        testFixturesImplementation(Testing.junit.jupiter.engine)
-        testFixturesImplementation("com.natpryce:hamkrest:_")
-    }
 }
 
 subprojects {
-    apply(plugin = "kotlin")
-    apply(plugin = "idea")
-
     val sourcesJar by tasks.creating(Jar::class) {
         archiveClassifier.set("sources")
         from(project.the<SourceSetContainer>()["main"].allSource)
@@ -237,13 +182,6 @@ subprojects {
             }
         }
     }
-
-    sourceSets {
-        test {
-            kotlin.srcDir("$projectDir/src/examples/kotlin")
-        }
-    }
-
 }
 
 tasks.register<JacocoReport>("jacocoRootReport") {
@@ -276,13 +214,6 @@ dependencies {
 }
 
 fun hasAnArtifact(it: Project) = !it.name.contains("test-function") && !it.name.contains("integration-test")
-
-sourceSets {
-    test {
-        kotlin.srcDir("$projectDir/src/docs")
-        resources.srcDir("$projectDir/src/docs")
-    }
-}
 
 tasks.register("listProjects") {
     doLast {
@@ -328,15 +259,5 @@ nexusPublishing {
     transitionCheckOptions {
         maxRetries.set(150)
         delayBetween.set(Duration.ofSeconds(5))
-    }
-}
-
-tasks.withType<DokkaMultiModuleTask>().configureEach {
-    pluginConfiguration<DokkaBase, DokkaBaseConfiguration> {
-        moduleVersion.set(version.toString())
-        customAssets = listOf(file("src/docs/img/favicon-mono.png"))
-        footerMessage = "(c) 2024 http4k"
-        homepageLink = "https://http4k.org"
-        customStyleSheets = listOf(file("src/docs/css/dokka.css"))
     }
 }
