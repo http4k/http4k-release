@@ -14,7 +14,9 @@ jobs:
           fetch-depth: 2
           # required by release-tag.sh to allow pushing with another credentials so other workflows are triggered
           persist-credentials: false
+          path: http4k-release
       - uses: actions/checkout@v4.2.2
         name: Checkout http4k
         with:
           repository: http4k/http4k
+          path: http4k
