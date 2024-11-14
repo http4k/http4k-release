@@ -51,3 +51,7 @@ jobs:
         timeout-minutes: 25
         working-directory: http4k-connect
         run: ./gradlew publishToMavenLocal -PreleaseVersion=${{ steps.tagName.outputs.tag }} -Phttp4k_version=${{ steps.tagName.outputs.tag }}
+      - name: Publish http4k-release
+        timeout-minutes: 25
+        working-directory: http4k-release
+        run: ./gradlew publishToMavenLocal -PreleaseVersion=${{ steps.tagName.outputs.tag }}
