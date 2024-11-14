@@ -13,7 +13,6 @@ git stash
 
 echo Upgrade from "$LATEST_VERSION" to "$NEW_VERSION"
 
-find . -name "*.md" | grep -v "CHANGELOG" | xargs -I '{}' sed -i '' s/"$LATEST_VERSION"/"$NEW_VERSION"/g '{}'
 sed -i '' s/"$LATEST_VERSION"/"$NEW_VERSION"/g version.json
 
 git commit -am"Release $NEW_VERSION"
