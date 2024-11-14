@@ -14,6 +14,7 @@ val bomModules = when {
     http4kLocalHavenRepo.exists() && http4kLocalHavenRepo.isDirectory ->
         http4kLocalHavenRepo.listFiles()
             ?.filter { it.isDirectory }
+            ?.filterNot { it.name == project.name }
             ?.map { it.name }?.toList()
             ?: emptyList()
 
