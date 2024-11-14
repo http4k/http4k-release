@@ -1,0 +1,168 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "org.http4k",
+    "module": "gradle-plugins",
+    "version": "0.0.0.0",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.10.2"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-gradle-plugin",
+          "version": {
+            "requires": "2.0.21",
+            "rejects": [
+              "_"
+            ]
+          }
+        },
+        {
+          "group": "io.github.gradle-nexus",
+          "module": "publish-plugin",
+          "version": {
+            "requires": "2.0.0",
+            "rejects": [
+              "_"
+            ]
+          }
+        },
+        {
+          "group": "com.github.jk1",
+          "module": "gradle-license-report",
+          "version": {
+            "requires": "2.9",
+            "rejects": [
+              "_"
+            ]
+          }
+        },
+        {
+          "group": "org.jetbrains.dokka",
+          "module": "dokka-base",
+          "version": {
+            "requires": "1.9.20",
+            "rejects": [
+              "_"
+            ]
+          }
+        },
+        {
+          "group": "org.jetbrains.dokka",
+          "module": "dokka-gradle-plugin",
+          "version": {
+            "requires": "1.9.20",
+            "rejects": [
+              "_"
+            ]
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "gradle-plugins-0.0.0.0.jar",
+          "url": "gradle-plugins-0.0.0.0.jar",
+          "size": 1440080,
+          "sha512": "5871807e3b3270639b6bc7b1bed4eaecd0755221c47cfd6ec11494d363db20fa0b9cac1df36906e7ece3cd4786da28b106fb0cd111ae6367e31f376c5b20ea2f",
+          "sha256": "8ed056968201c978639d2415a63ef629b26bd999337002c6dce16c72f161a4d8",
+          "sha1": "609c2e12bf71426bea0620f755f51d19157ff825",
+          "md5": "61c0931b1910002a6dba7009621debe4"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-gradle-plugin",
+          "version": {
+            "requires": "2.0.21",
+            "rejects": [
+              "_"
+            ]
+          }
+        },
+        {
+          "group": "io.github.gradle-nexus",
+          "module": "publish-plugin",
+          "version": {
+            "requires": "2.0.0",
+            "rejects": [
+              "_"
+            ]
+          }
+        },
+        {
+          "group": "com.github.jk1",
+          "module": "gradle-license-report",
+          "version": {
+            "requires": "2.9",
+            "rejects": [
+              "_"
+            ]
+          }
+        },
+        {
+          "group": "org.jetbrains.dokka",
+          "module": "dokka-base",
+          "version": {
+            "requires": "1.9.20",
+            "rejects": [
+              "_"
+            ]
+          }
+        },
+        {
+          "group": "org.jetbrains.dokka",
+          "module": "dokka-gradle-plugin",
+          "version": {
+            "requires": "1.9.20",
+            "rejects": [
+              "_"
+            ]
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "gradle-plugins-0.0.0.0.jar",
+          "url": "gradle-plugins-0.0.0.0.jar",
+          "size": 1440080,
+          "sha512": "5871807e3b3270639b6bc7b1bed4eaecd0755221c47cfd6ec11494d363db20fa0b9cac1df36906e7ece3cd4786da28b106fb0cd111ae6367e31f376c5b20ea2f",
+          "sha256": "8ed056968201c978639d2415a63ef629b26bd999337002c6dce16c72f161a4d8",
+          "sha1": "609c2e12bf71426bea0620f755f51d19157ff825",
+          "md5": "61c0931b1910002a6dba7009621debe4"
+        }
+      ]
+    }
+  ]
+}
