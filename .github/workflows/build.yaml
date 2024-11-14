@@ -64,6 +64,8 @@ jobs:
         timeout-minutes: 25
         working-directory: http4k-release
         run: ./gradlew publishToMavenLocal -PreleaseVersion=${{ steps.tagName.outputs.tag }}
+      - name: Print maven repo
+        run: find ~/.m2/repository/org/http4k
       - name: Release (if required)
         run: |
           git config user.name github-actions
