@@ -3,30 +3,24 @@ on:
   push:
     branches:
       - 'master'
+    paths-ignore:
+      - '**/*.md'
+  pull_request:
+    branches:
+      - '*'
+    paths-ignore:
+      - '**/*.md'
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.2.2
-        name: Checkout http4k-release
         with:
           # required by release-tag.sh to correctly identify files changed in the last commit
           fetch-depth: 2
           # required by release-tag.sh to allow pushing with another credentials so other workflows are triggered
           persist-credentials: false
-          path: http4k-release
-      - uses: actions/checkout@v4.2.2
-        name: Checkout http4k
-        with:
-          repository: http4k/http4k
-          path: http4k
-      - uses: actions/checkout@v4.2.2
-        name: Checkout http4k-connect
-        with:
-          repository: http4k/http4k-connect
-          path: http4k-connect
       - uses: actions/setup-java@v4.5.0
-        name: Setup Java
         with:
           distribution: temurin
           java-version: 21
@@ -40,11 +34,15 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-      - name: Build http4k
+      - name: Build
         timeout-minutes: 25
-        working-directory: http4k
-        run: ./gradlew publishToMavenLocal -PreleaseVersion=123
-      - name: Build http4k-connect
-        timeout-minutes: 25
-        working-directory: http4k-connect
-        run: ./gradlew publishToMavenLocal -PreleaseVersion=123 -Phttp4k_version=123
+        run: ./gradlew version
+      - name: Release (if required)
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git remote set-url origin https://x-access-token:${{ secrets.ORG_PUBLIC_REPO_RELEASE_TRIGGERING }}@github.com/${GITHUB_REPOSITORY}.git
+          ./release-tag.sh
+        if: github.ref == 'refs/heads/master'
+        env:
+          GH_TOKEN: ${{ secrets.ORG_PUBLIC_REPO_RELEASE_TRIGGERING }}
