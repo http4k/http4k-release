@@ -14,12 +14,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.2.2
-        with:
-          # required by release-tag.sh to correctly identify files changed in the last commit
-          fetch-depth: 2
-          # required by release-tag.sh to allow pushing with another credentials so other workflows are triggered
-          persist-credentials: false
       - uses: actions/setup-java@v4.5.0
         with:
           distribution: temurin
@@ -34,9 +28,51 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-      - name: Build
+      - uses: actions/checkout@v4.2.2
+        name: Checkout http4k-release
+        with:
+          # required by release-tag.sh to correctly identify files changed in the last commit
+          fetch-depth: 2
+          # required by release-tag.sh to allow pushing with another credentials so other workflows are triggered
+          persist-credentials: false
+          path: http4k-release
+      - uses: actions/checkout@v4.2.2
+        name: Checkout http4k
+        with:
+          repository: http4k/http4k
+          path: http4k
+      - uses: actions/checkout@v4.2.2
+        name: Checkout http4k-connect
+        with:
+          repository: http4k/http4k-connect
+          path: http4k-connect
+      - uses: actions/setup-java@v4.5.0
+        name: Setup Java
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: gradle
+      - name: Cache Gradle packages
+        uses: actions/cache@v4.1.2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - name: Publish http4k (local maven)
         timeout-minutes: 25
-        run: ./gradlew version
+        working-directory: http4k
+        run: ./gradlew publishToMavenLocal -PreleaseVersion=${{ steps.tagName.outputs.tag }}
+      - name: Publish http4k-connect (local maven)
+        timeout-minutes: 25
+        working-directory: http4k-connect
+        run: ./gradlew publishToMavenLocal -PreleaseVersion=${{ steps.tagName.outputs.tag }} -Phttp4k_version=${{ steps.tagName.outputs.tag }}
+      - name: Publish http4k-release (local maven)
+        timeout-minutes: 25
+        working-directory: http4k-release
+        run: ./gradlew publishToMavenLocal -PreleaseVersion=${{ steps.tagName.outputs.tag }}
       - name: Release (if required)
         run: |
           git config user.name github-actions
