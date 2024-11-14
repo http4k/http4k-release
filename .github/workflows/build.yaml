@@ -14,20 +14,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-java@v4.5.0
-        with:
-          distribution: temurin
-          java-version: 21
-          cache: gradle
-      - name: Cache Gradle packages
-        uses: actions/cache@v4.1.2
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
       - uses: actions/checkout@v4.2.2
         name: Checkout http4k-release
         with:
@@ -48,6 +34,11 @@ jobs:
           path: http4k-connect
       - uses: actions/setup-java@v4.5.0
         name: Setup Java
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: gradle
+      - uses: actions/setup-java@v4.5.0
         with:
           distribution: temurin
           java-version: 21
