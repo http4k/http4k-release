@@ -1,4 +1,4 @@
-name: Publish http4k + connect
+name: Publish http4k + connect + BOM
 on:
   push:
     tags:
