@@ -21,7 +21,7 @@ dependencies {
     bomModules
         .sorted()
         .forEach {
-            println(it)
+            println("org.http4k:$it:${rootProject.version}")
         }
 }
 
