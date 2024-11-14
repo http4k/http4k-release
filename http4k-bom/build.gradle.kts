@@ -1,7 +1,7 @@
 description = "Http4k Bill Of Materials (BOM)"
 
 plugins {
-    java
+    id("org.http4k.module")
 }
 
 val http4kLocalHavenRepo = file("${System.getProperty("user.home")}/.m2/repository/org/http4k")
@@ -20,7 +20,7 @@ dependencies {
     bomModules
         .sorted()
         .forEach {
-            println("org.http4k:$it:${rootProject.version}")
+            api("org.http4k:$it:${rootProject.version}")
         }
 }
 
