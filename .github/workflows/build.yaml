@@ -30,6 +30,16 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
+          cache: gradle
+      - name: Cache Gradle packages
+        uses: actions/cache@v4.1.2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
       - name: Build http4k
         timeout-minutes: 25
         working-directory: http4k
