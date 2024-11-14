@@ -65,7 +65,7 @@ jobs:
         working-directory: http4k-release
         run: ./gradlew publishToMavenLocal -PreleaseVersion=LOCAL
       - name: Print maven repo
-        run: find ~/.m2/repository/org/http4k
+        run: cat ~/.m2/repository/org/http4k/http4k-bom/LOCAL/http4k-bom-LOCAL.pom
       - name: Release (if required)
         run: |
           git config user.name github-actions
