@@ -21,10 +21,10 @@ val bomModules = when {
 }
 
 dependencies {
-    bomModules
-        .sorted()
-        .forEach {
-            api("org.http4k:$it:${rootProject.version}")
-        }
+    constraints {
+        bomModules
+            .sorted()
+            .forEach { api("org.http4k:$it:${rootProject.version}") }
+    }
 }
 
