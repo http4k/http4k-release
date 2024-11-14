@@ -1,7 +1,7 @@
 name: New Release - Update other projects
 on:
   repository_dispatch:
-    types: [http4k-platform-release2]
+    types: [http4k-platform-release]
 jobs:
   create-upgrade-branches:
     strategy:
@@ -23,5 +23,6 @@ jobs:
         with:
           token: ${{ secrets.TOOLBOX_REPO_TOKEN }}
           repository: ${{ matrix.repo }}
-          event-type: http4k-release
+#         TODO CHANGE THIS TO BE http4k-release
+          event-type: http4k-platform-release
           client-payload: '{"version": "${{ github.event.client_payload.version }}"}'
