@@ -67,6 +67,7 @@ jobs:
       - name: Print maven repo
         run: cat ~/.m2/repository/org/http4k/http4k-bom/LOCAL/http4k-bom-LOCAL.pom
       - name: Release (if required)
+        working-directory: http4k-release
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
