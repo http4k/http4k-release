@@ -16,7 +16,6 @@ val bomModules = when {
     else -> emptyList()
 }
 
-
 dependencies {
     bomModules
         .sorted()
