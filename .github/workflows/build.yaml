@@ -55,15 +55,15 @@ jobs:
       - name: Publish http4k (local maven)
         timeout-minutes: 25
         working-directory: http4k
-        run: ./gradlew publishToMavenLocal -PreleaseVersion=${{ steps.tagName.outputs.tag }}
+        run: ./gradlew publishToMavenLocal -PreleaseVersion=LOCAL
       - name: Publish http4k-connect (local maven)
         timeout-minutes: 25
         working-directory: http4k-connect
-        run: ./gradlew publishToMavenLocal -PreleaseVersion=${{ steps.tagName.outputs.tag }} -Phttp4k_version=${{ steps.tagName.outputs.tag }}
+        run: ./gradlew publishToMavenLocal -PreleaseVersion=LOCAL -Phttp4k_version=LOCAL
       - name: Publish http4k-release (local maven)
         timeout-minutes: 25
         working-directory: http4k-release
-        run: ./gradlew publishToMavenLocal -PreleaseVersion=${{ steps.tagName.outputs.tag }}
+        run: ./gradlew publishToMavenLocal -PreleaseVersion=LOCAL
       - name: Print maven repo
         run: find ~/.m2/repository/org/http4k
       - name: Release (if required)
