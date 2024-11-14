@@ -20,3 +20,8 @@ jobs:
         with:
           repository: http4k/http4k
           path: http4k
+      - uses: actions/checkout@v4.2.2
+        name: Checkout http4k-connect
+        with:
+          repository: http4k/http4k-connect
+          path: http4k-connect
