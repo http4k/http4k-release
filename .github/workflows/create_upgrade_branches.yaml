@@ -11,11 +11,12 @@ jobs:
           - 'http4k/http4k-bin'
           - 'http4k/http4k-by-example'
           - 'http4k/http4k-connect'
-          - 'http4k/http4k-connect-examples'
-          - 'http4k/http4k-todo-backend'
-          - 'http4k/lts-examples'
           - 'http4k/toolbox'
           - 'http4k/www'
+
+          - 'http4k/lts-examples'
+          - 'http4k/http4k-connect-examples'
+
     runs-on: ubuntu-latest
     steps:
       - name: Trigger ${{ matrix.repo }}
