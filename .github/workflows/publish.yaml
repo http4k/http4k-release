@@ -69,5 +69,5 @@ jobs:
         with:
           token: ${{ secrets.ORG_PUBLIC_REPO_WORKFLOW_TRIGGERING }}
           repository: ${{ github.repository }}
-          event-type: http4k-release
+          event-type: http4k-platform-release
           client-payload: '{"version": "${{ steps.tagName.outputs.tag }}"}'

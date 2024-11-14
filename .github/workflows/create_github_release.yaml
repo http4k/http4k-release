@@ -1,7 +1,7 @@
 name: New Release - GitHub
 on:
   repository_dispatch:
-    types: [http4k-release]
+    types: [http4k-platform-release]
 permissions:
   contents: read
 
