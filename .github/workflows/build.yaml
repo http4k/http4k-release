@@ -52,18 +52,18 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-      - name: Publish http4k (local maven)
+      - name: http4k - Build and publish to local maven
         timeout-minutes: 25
         working-directory: http4k
-        run: ./gradlew publishToMavenLocal -PreleaseVersion=LOCAL
-      - name: Publish http4k-connect (local maven)
+        run: ./gradlew check publishToMavenLocal -PreleaseVersion=LOCAL
+      - name: http4k-connect - Build and publish to local maven
         timeout-minutes: 25
         working-directory: http4k-connect
-        run: ./gradlew publishToMavenLocal -PreleaseVersion=LOCAL -Phttp4k_version=LOCAL
-      - name: Publish http4k-release (local maven)
+        run: ./gradlew check publishToMavenLocal -PreleaseVersion=LOCAL -Phttp4k_version=LOCAL
+      - name: http4k-release - Build and publish to local maven
         timeout-minutes: 25
         working-directory: http4k-release
-        run: ./gradlew publishToMavenLocal -PreleaseVersion=LOCAL
+        run: ./gradlew check publishToMavenLocal -PreleaseVersion=LOCAL
       - name: Print maven repo
         run: cat ~/.m2/repository/org/http4k/http4k-bom/LOCAL/http4k-bom-LOCAL.pom
       - name: Release (if required)
