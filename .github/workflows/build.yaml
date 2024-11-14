@@ -34,3 +34,7 @@ jobs:
         timeout-minutes: 25
         working-directory: http4k
         run: ./gradlew publishToMavenLocal -PreleaseVersion=123
+      - name: Build http4k-connect
+        timeout-minutes: 25
+        working-directory: http4k
+        run: ./gradlew publishToMavenLocal -PreleaseVersion=123 -Phttp4k_version=123
