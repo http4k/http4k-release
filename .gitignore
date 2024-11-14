@@ -6,10 +6,6 @@
 build/
 .DS_Store
 classes/
-/site/
 out/
 store/
-intellij-settings/
-**/*.actual
 **/generated/**
-jte-classes

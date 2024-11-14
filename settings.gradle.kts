@@ -1,20 +1,20 @@
 rootProject.name = "http4k-release"
 
-plugins {
-    id("de.fayard.refreshVersions").version("0.60.5")
-}
+pluginManagement {
+    repositories {
+        mavenLocal {
+            url = uri("$rootDir/gradle/repo")
+        }
+        gradlePluginPortal()
+    }
 
-refreshVersions {
-    rejectVersionIf {
-        candidate.stabilityLevel.isLessStableThan(current.stabilityLevel) ||
-                setOf("milestone", "-RC").map { it.lowercase() }.any { candidate.value.contains(it) } ||
-                Regex("""\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}.*""").matches(candidate.value) || // graphql nightlies
-                candidate.value.contains("nf-execution") // graphql nightlies
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.namespace == "org.http4k") {
+                useModule("org.http4k:gradle-plugins:0.0.0.0")
+            }
+        }
     }
 }
 
-gradle.startParameter.isContinueOnFailure = true
-
-includeBuild("../http4k")
-
-include(":http4k-sdk-bom")
+include(":http4k-bom")
